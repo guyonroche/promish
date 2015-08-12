@@ -1,7 +1,7 @@
 {
     "name": "promish",
     "version": "0.0.1",
-    "description": "Excel Workbook Manager",
+    "description": "ES6 Promise Shim",
     "private": false,
     "license": "MIT",
     "author": {
@@ -14,7 +14,7 @@
         "url": "https://github.com/guyonroche/exceljs.git"
     },
     "keywords": [
-        "Promise", "Shim"
+        "ES6", "Promise", "Shim"
     ],
     "dependencies": {
     },
