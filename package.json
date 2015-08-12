@@ -1,6 +1,6 @@
 {
-    "name": "exceljs",
-    "version": "0.2.3",
+    "name": "promish",
+    "version": "0.0.1",
     "description": "Excel Workbook Manager",
     "private": false,
     "license": "MIT",
@@ -19,7 +19,6 @@
     "dependencies": {
     },
     "devDependencies": {
-        "assert": "*",
         "chai": "*",
         "mocha": "*"
     },
@@ -30,7 +29,6 @@
     "files": [
         "lib",
         "LICENSE",
-        "README.md",
-        "MODEL.md"
+        "README.md"
     ]
 }
