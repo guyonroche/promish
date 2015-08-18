@@ -58,5 +58,55 @@ describe('Promish', function() {
           });
       });
     });
+    
+    it('should catch errors that are thrown inside the Promish', function() {
+      return new Promise(function(resolve, reject) {
+        helpersh.paushe(EReshult.THROW, new Error('Hai!'))
+          .then(Unexpected.then(resolve, reject))
+          .catch(function(error) {
+            expect(error).to.be.an.instanceof(Error);
+            resolve();
+          });
+      });
+    });
+    
+    it('should catch matching errors', function() {
+      return new Promise(function(resolve, reject) {
+        var handled = false;
+        helpersh.paushe(EReshult.REJECT, 'This string has foo in it')
+          .then(Unexpected.then(resolve, reject))
+          .catch(helpersh.matchersh.fooString, function(error) {
+            expect(error).to.equal('This string has foo in it');
+            handled = true;
+          })
+          .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error which should have been handled earlier'))
+          .finally(function() {
+            expect(handled).to.be.true;
+            resolve();
+          })
+          .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+      });
+    });
+    
+    it('should handle rethrow', function() {
+      return new Promise(function(resolve, reject) {
+        var handleCount = 0;
+        helpersh.paushe(EReshult.REJECT, new Error('Something very wrong has happened'))
+          .then(Unexpected.then(resolve, reject))
+          .catch(Error, function(error) {
+            handleCount++;
+            // 'rethrow' the error
+            return new Promish(error);
+          })
+          .catch(function(error) {
+            handleCount++;
+          })
+          .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error which should have been handled earlier'))
+          .finally(function() {
+            expect(handleCount).to.equal(2);
+            resolve();
+          });
+      });
+    });
   });
 });

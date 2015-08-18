@@ -12,42 +12,16 @@ function isErrorClass(type) {
   return false;
 }
 
-var PromishBase = function(p) {
-  this.__proto__ = p;
-}
-
 var Promish = function(f) {
   if (f instanceof Promise) {
-    // if f is a Promise, then wrap it
     this.__proto__ = f;
-  } else if (f.then instanceof Function) {
-    // if f is a 3rd Party Promise, then wrap it
-    this.__proto__ = new Promise(function(resolve, reject) {
-      f.then(function(value) {
-        resolve(value);
-      })
-      .catch(function(error) {
-        reject(error);
-      })
-    });
-  } else if (f instanceof Error) {
-    // sugar for 'rethrow'
-    this.__proto__ = new Promise(function(resolve, reject) {
-      reject(f);
-    });
-  } else if (f instanceof Function) {
-    // otherwise create a new Promise and wrap that
-    this.__proto__ = new Promise(f);
   } else {
-    // resolve instantly
-    this.__proto__ = new Promise(function(resolve, reject) {
-      resolve(f);
-    });
+    this.__proto__ = new Promise(f);
   }
   
   // add finally sugar if not supported by Promise
   if (!this.finally) {
-    this.finally = function(h) {
+    this.__proto__.finally = function(h) {
       function fin() { return h(); }
       return this.then(fin, fin);
     };
@@ -55,17 +29,14 @@ var Promish = function(f) {
   
   // extend catch to allow type specific
   // the last argument is the handler, all previous are matchers
-  this.catch = function() {
+  this.__proto__.catch = function() {
     var args = [];
     Array.prototype.push.apply(args, arguments);
     var h = args.pop();
     return this.then(undefined, function(error) {
-      // default catch - no matchers. Just return handler result
       if (!args.length) {
         return h(error);
       }
-      
-      // search for a match in argument order and return handler result if found
       for (var i = 0; i < args.length; i++) {
         var matcher = args[i];
         if (isErrorClass(matcher)) {
@@ -78,28 +49,15 @@ var Promish = function(f) {
           }
         }
       }
-      
-      // no match was found send this error to the next promise handler in the chain
       return new Promish(function(resolve, reject) { reject(error); });
     });
   };
   
   // wrap then so that we maintain the Promish chain
-  this.then = function(t, r) {
+  this.__proto__.then = function(t, r) {
     var p = Promise.prototype.then.call(this, t, r);
     return new Promish(p);
-  };
-  
-  // sleep some ms then resolve with incoming value
-  this.delay = function(timeout) {
-    return this.then(function(value) {
-      return new Promish(function(resolve) {
-        setTimeout(function() {
-          resolve(value);
-        }, timeout);
-      });
-    });
-  };
+  }
 }
 
 Promish.all = function(promises) {
@@ -130,15 +88,6 @@ Promish.any = Promise.any || function(promises) {
     });
   });
 };
-
-Promish.defer = function() {
-  var deferred = {};
-  deferred.promise = new Promish(function(resolve, reject) {
-    deferred.resolve = resolve;
-    deferred.reject = reject;
-  });
-  return deferred;
-}
 
 module.exports = Promish;
 

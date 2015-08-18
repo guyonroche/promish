@@ -63,6 +63,35 @@ module.exports = {
     });
   },
   
+  defer: function(result, value, timeout) {
+    var deferred = Promish.defer();
+    function handler() {
+      switch(result) {
+        case EReshult.RESOLVE:
+          deferred.resolve(value);
+          break;
+        case EReshult.REJECT:
+          deferred.reject(value);
+          break;
+      }
+    }
+    
+    if (timeout === undefined) {
+      // handle immediately (on the stack)
+      handler();
+    } else {
+      setTimeout(handler, timeout);
+    }
+    
+    return deferred.promise;
+  },
+  
+  matchersh: {
+    fooString: function(value) {
+      return ((typeof value) === 'string') && (value.indexOf('foo') >= 0);
+    }
+  },
+  
   handlersh: {
     unexpected: {
       then: function(resolve, reject, message) {
