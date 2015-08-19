@@ -19,6 +19,7 @@ npm install promish
 <ul>
     <li><a href="#delay">Promish.delay()</li>
     <li><a href="#defer">Promish.defer()</li>
+    <li><a href="#spread">Promish.spread()</li>
 </ul>
 
 # Backlog
@@ -119,6 +120,15 @@ function readAFile(filename) {
   
   return deferred.promise;
 }
+```
+
+## Spread
+
+```javascript
+Promish.all(getPromish1(), getPromish2(), getPromish3())
+  .spread(function(value1, value2, value3) {
+    // use values...
+  });
 ```
 
 # Known Issues

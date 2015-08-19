@@ -15,7 +15,6 @@ describe('Promish', function() {
         var stopwatch = new HrStopwatch();
         helpersh.paushe(EReshult.RESOLVE, 5)
           .then(function(value) {
-            console.log('start')
             stopwatch.start();
             return value;
           })
