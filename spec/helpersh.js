@@ -86,6 +86,45 @@ module.exports = {
     return deferred.promise;
   },
   
+  fn: {
+    // call 1 in, 1 out, 10ms timer
+    call_1_1_10: function(value, callback) {
+      setTimeout(function() {
+        if (value instanceof Error) {
+          callback(value);
+        } else {
+          callback(null, value);
+        }
+      }, 10);
+    },
+    // call 1 in, 1 out, no timer
+    call_1_1_0: function(value, callback) {
+      if (value instanceof Error) {
+        callback(value);
+      } else {
+        callback(null, value);
+      }
+    },
+    // call 2 in, 2 out, 10ms timer
+    call_2_2_10: function(value1, value2, callback) {
+      setTimeout(function() {
+        if (value1 instanceof Error) {
+          callback(value1);
+        } else {
+          callback(null, value1, value2);
+        }
+      }, 10);
+    },
+    // call 2 in, 2 out, no timer
+    call_2_2_0: function(value1, value2, callback) {
+      if (value1 instanceof Error) {
+        callback(value1);
+      } else {
+        callback(null, value1, value2);
+      }
+    }
+  },
+  
   matchersh: {
     fooString: function(value) {
       return ((typeof value) === 'string') && (value.indexOf('foo') >= 0);

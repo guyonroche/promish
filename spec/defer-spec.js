@@ -59,6 +59,21 @@ describe('Promish', function() {
             .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
         });
       });
+      
+      it('should resolve with value of promise on defer.resolve', function () {
+        return new Promise(function(resolve, reject) {
+          var promise = helpersh.paushe(EReshult.RESOLVE, 'Hello, World!', 20);
+          helpersh.defer(EReshult.RESOLVE, promise, 10)
+            .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'))
+            .then(function(value) {
+              expect(value).to.equal('Hello, World!');
+              resolve();
+            })
+            .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+        });
+      });
+      
+      
     });
   });
 });
