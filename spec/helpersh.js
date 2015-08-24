@@ -1,5 +1,6 @@
 'use strict';
 var util = require('util');
+var expect = require('chai').expect
 var Promish = require('../lib/promish');
 
 // =============================================================================
@@ -37,7 +38,7 @@ util.inherits(MyErrorB, MyError);
 
 
 // =============================================================================
-module.exports = {
+var helpersh = module.exports = {
   EReshult : EReshult,
   Errorsh: {
     MyError: MyError,
@@ -125,6 +126,199 @@ module.exports = {
     }
   },
   
+  nfApply: {
+    Sync: {
+      One: {
+        Resolve: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfapply(helpersh.fn.call_1_1_0, [5])
+              .then(function(value) {
+                expect(value).to.equal(5);
+                resolve();
+              })
+              .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+          });
+        },
+        Reject: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfapply(helpersh.fn.call_1_1_0, [new Error('Fail')])
+              .then(Unexpected.then(resolve, reject))
+              .catch(function(error) {
+                expect(error.message).to.equal('Fail');
+                resolve();
+              });
+          });
+        }
+      },
+      Two: {
+        Resolve: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfapply(helpersh.fn.call_2_2_0, [5, 7])
+              .spread(function(value1, value2) {
+                expect(value1).to.equal(5);
+                expect(value2).to.equal(7);
+                resolve();
+              })
+              .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+          });
+        },
+        Reject: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfapply(helpersh.fn.call_2_2_0, [new Error('Fail'), 6])
+              .then(Unexpected.then(resolve, reject))
+              .catch(function(error) {
+                expect(error.message).to.equal('Fail');
+                resolve();
+              });
+          });
+        }
+      }
+    },
+    Async: {
+      One: {
+        Resolve: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfapply(helpersh.fn.call_1_1_10, [5])
+              .then(function(value) {
+                expect(value).to.equal(5);
+                resolve();
+              })
+              .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+          });
+        },
+        Reject: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfapply(helpersh.fn.call_1_1_10, [new Error('Fail')])
+              .then(Unexpected.then(resolve, reject))
+              .catch(function(error) {
+                expect(error.message).to.equal('Fail');
+                resolve();
+              });
+          });
+        }
+      },
+      Two: {
+        Resolve: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfapply(helpersh.fn.call_2_2_10, [5, 7])
+              .spread(function(value1, value2) {
+                expect(value1).to.equal(5);
+                expect(value2).to.equal(7);
+                resolve();
+              })
+              .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+          });
+        },
+        Reject: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfapply(helpersh.fn.call_2_2_10, [new Error('Fail'), 6])
+              .then(Unexpected.then(resolve, reject))
+              .catch(function(error) {
+                expect(error.message).to.equal('Fail');
+                resolve();
+              });
+          });
+        }
+      }
+    }
+  },
+  
+  nfCall: {
+    Sync: {
+      One: {
+        Resolve: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfcall(helpersh.fn.call_1_1_0, 5)
+              .then(function(value) {
+                expect(value).to.equal(5);
+                resolve();
+              })
+              .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+          });
+        },
+        Reject: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfcall(helpersh.fn.call_1_1_0, new Error('Fail'))
+              .then(Unexpected.then(resolve, reject))
+              .catch(function(error) {
+                expect(error.message).to.equal('Fail');
+                resolve();
+              });
+          });
+        }
+      },
+      Two: {
+        Resolve: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfcall(helpersh.fn.call_2_2_0, 5, 7)
+              .spread(function(value1, value2) {
+                expect(value1).to.equal(5);
+                expect(value2).to.equal(7);
+                resolve();
+              })
+              .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+          });
+        },
+        Reject: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfcall(helpersh.fn.call_2_2_0, new Error('Fail'), 6)
+              .then(Unexpected.then(resolve, reject))
+              .catch(function(error) {
+                expect(error.message).to.equal('Fail');
+                resolve();
+              });
+          });
+        }
+      }
+    },
+    Async: {
+      One: {
+        Resolve: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfcall(helpersh.fn.call_1_1_10, 5)
+              .then(function(value) {
+                expect(value).to.equal(5);
+                resolve();
+              })
+              .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+          });
+        },
+        Reject: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfcall(helpersh.fn.call_1_1_10, new Error('Fail'))
+              .then(Unexpected.then(resolve, reject))
+              .catch(function(error) {
+                expect(error.message).to.equal('Fail');
+                resolve();
+              });
+          });
+        }
+      },
+      Two: {
+        Resolve: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfcall(helpersh.fn.call_2_2_10, 5, 7)
+              .spread(function(value1, value2) {
+                expect(value1).to.equal(5);
+                expect(value2).to.equal(7);
+                resolve();
+              })
+              .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+          });
+        },
+        Reject: function(Type) {
+          return new Promise(function(resolve, reject) {
+            Type.nfcall(helpersh.fn.call_2_2_10, new Error('Fail'), 6)
+              .then(Unexpected.then(resolve, reject))
+              .catch(function(error) {
+                expect(error.message).to.equal('Fail');
+                resolve();
+              });
+          });
+        }
+      }
+    }
+  },
   matchersh: {
     fooString: function(value) {
       return ((typeof value) === 'string') && (value.indexOf('foo') >= 0);
@@ -148,3 +342,6 @@ module.exports = {
     }
   }
 };
+
+var Unexpected = helpersh.handlersh.unexpected;
+var EReshult = helpersh.EReshult;

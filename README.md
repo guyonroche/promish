@@ -17,9 +17,8 @@ npm install promish
 # New Features!
 
 <ul>
-    <li><a href="#delay">Promish.delay()</li>
-    <li><a href="#defer">Promish.defer()</li>
-    <li><a href="#spread">Promish.spread()</li>
+    <li><a href="#nfapply">Promish.nfapply()</li>
+    <li><a href="#nfcall">Promish.nfcall()</li>
 </ul>
 
 # Backlog
@@ -131,6 +130,35 @@ Promish.all(getPromish1(), getPromish2(), getPromish3())
   });
 ```
 
+## Nfapply
+
+Simple promisification of standard async methods
+
+```javascript
+Promish.nfapply(fs.readFile, [filename])
+  .then(function(data) {
+    // oooh data!
+  })
+  .catch(function(error) {
+    // handle failure
+  });
+```
+
+## Nfcall
+
+Simple promisification of standard async methods
+
+```javascript
+Promish.nfcall(fs.readFile, filename)
+  .then(function(data) {
+    // oooh data!
+  })
+  .catch(function(error) {
+    // handle failure
+  });
+```
+
+
 # Known Issues
 
 <ul>
@@ -143,4 +171,5 @@ Promish.all(getPromish1(), getPromish2(), getPromish3())
 | ------- | ------- |
 | 0.0.1   | <ul><li>Initial Version</li></ul> |
 | 0.0.2   | <ul><li><a href="#delay">Promish.delay()</li><li><a href="#defer">Promish.defer()</li></ul> |
-
+| 0.0.3   | <ul><li><a href="#delay">Promish.delay()</li><li><a href="#defer">Promish.defer()</li><li><a href="#spread">Promish.spread()</li></ul> |
+| 0.0.4   | <ul><li><a href="#nfapply">Promish.nfapply()</li><li><a href="#nfcall">Promish.nfcall()</li></ul> |
