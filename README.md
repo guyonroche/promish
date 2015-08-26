@@ -101,6 +101,23 @@ promise
   });
 ```
 
+## Delay
+
+Pause for a number of milliseconds and then continue.
+ The resolve value will be preserved.
+ If the promish state is rejected, delay will not delay and will preserve the rejection error
+
+```javascript
+getAPromish()
+  .delay(1000)
+  .then(function(value) {
+    // continue 1 second later
+  })
+  .catch(function(error) {
+    // there was an error, process immediately
+  });
+```
+
 ## Defer
 
 For compatability with the old Promise.defer() pattern...
@@ -130,6 +147,10 @@ Promish.all(getPromish1(), getPromish2(), getPromish3())
   });
 ```
 
+## Promisification Calls
+
+The majority of the old Node methods follow the
+
 ## Nfapply
 
 Simple promisification of standard async methods
@@ -157,6 +178,7 @@ Promish.nfcall(fs.readFile, filename)
     // handle failure
   });
 ```
+
 
 
 # Known Issues

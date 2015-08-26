@@ -28,6 +28,26 @@ describe('Promish', function() {
           })
           .catch(Unexpected.catch(resolve, reject));
       });
-    }, 100);
+    });
+
+    it('should not delay 50ms if the promise is rejected', function () {
+      return new Promise(function(resolve, reject) {
+        var stopwatch = new HrStopwatch();
+        helpersh.paushe(EReshult.RESOLVE, new Error('Pththt!'))
+          .then(function(value) {
+            stopwatch.start();
+            throw value;
+          })
+          .then(Unexpected.then(resolve, reject))
+          .delay(50)
+          .then(Unexpected.then(resolve, reject))
+          .catch(function(error) {
+            stopwatch.stop();
+            expect(stopwatch.ms).to.be.below(10);
+            expect(error.message).to.equal('Pththt!');
+            resolve();
+          });
+      });
+    });
   });
 });
