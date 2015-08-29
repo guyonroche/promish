@@ -97,36 +97,36 @@ describe('Q', function() {
     describe('call sync', function () {
       describe('1 argument', function () {
         it("resolve path", function () {
-          return helpersh.nfApply.Sync.One.Resolve(Q);
+          return helpersh.spec.apply.Sync.One.Resolve(Q);
         });
         it("reject path", function () {
-          return helpersh.nfApply.Sync.One.Reject(Q);
+          return helpersh.spec.apply.Sync.One.Reject(Q);
         });
       });
       describe('2 arguments', function () {
         it("resolve path", function () {
-          return helpersh.nfApply.Sync.Two.Resolve(Q);
+          return helpersh.spec.apply.Sync.Two.Resolve(Q);
         });
         it("reject path", function () {
-          return helpersh.nfApply.Sync.Two.Reject(Q);
+          return helpersh.spec.apply.Sync.Two.Reject(Q);
         });
       });
     });
     describe('call async', function () {
       describe('1 argument', function () {
         it("resolve path", function () {
-          return helpersh.nfApply.Async.One.Resolve(Q);
+          return helpersh.spec.apply.Async.One.Resolve(Q);
         });
         it("reject path", function () {
-          return helpersh.nfApply.Async.One.Reject(Q);
+          return helpersh.spec.apply.Async.One.Reject(Q);
         });
       });
       describe('2 arguments', function () {
         it("resolve path", function () {
-          return helpersh.nfApply.Async.Two.Resolve(Q);
+          return helpersh.spec.apply.Async.Two.Resolve(Q);
         });
         it("reject path", function () {
-          return helpersh.nfApply.Async.Two.Reject(Q);
+          return helpersh.spec.apply.Async.Two.Reject(Q);
         });
       });
     });
@@ -136,36 +136,36 @@ describe('Q', function() {
     describe('call sync', function () {
       describe('1 argument', function () {
         it("resolve path", function () {
-          return helpersh.nfCall.Sync.One.Resolve(Q);
+          return helpersh.spec.call.Sync.One.Resolve(Q);
         });
         it("reject path", function () {
-          return helpersh.nfCall.Sync.One.Reject(Q);
+          return helpersh.spec.call.Sync.One.Reject(Q);
         });
       });
       describe('2 arguments', function () {
         it("resolve path", function () {
-          return helpersh.nfCall.Sync.Two.Resolve(Q);
+          return helpersh.spec.call.Sync.Two.Resolve(Q);
         });
         it("reject path", function () {
-          return helpersh.nfCall.Sync.Two.Reject(Q);
+          return helpersh.spec.call.Sync.Two.Reject(Q);
         });
       });
     });
     describe('call async', function () {
       describe('1 argument', function () {
         it("resolve path", function () {
-          return helpersh.nfCall.Async.One.Resolve(Q);
+          return helpersh.spec.call.Async.One.Resolve(Q);
         });
         it("reject path", function () {
-          return helpersh.nfCall.Async.One.Reject(Q);
+          return helpersh.spec.call.Async.One.Reject(Q);
         });
       });
       describe('2 arguments', function () {
         it("resolve path", function () {
-          return helpersh.nfCall.Async.Two.Resolve(Q);
+          return helpersh.spec.call.Async.Two.Resolve(Q);
         });
         it("reject path", function () {
-          return helpersh.nfCall.Async.Two.Reject(Q);
+          return helpersh.spec.call.Async.Two.Reject(Q);
         });
       });
     });

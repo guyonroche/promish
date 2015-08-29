@@ -10,6 +10,9 @@ The Promish module creates a wrapper around the EcmaScript 6 Promise class.
  It adds some of the useful features found in many of the other popular promise libraries such as Q and Bluebird.
  It is designed to be interchangeable with the ES6 Promise as its interface is a superset of the Promise class.
 
+This is probably one of the smallest promise libraries - currently around 6.5kb (smaller than this README!)
+ and comes with no dependencies (other than ES6 Promises).
+
 # Installation
 
 npm install promish
@@ -17,24 +20,44 @@ npm install promish
 # New Features!
 
 <ul>
-    <li><a href="#nfapply">Promish.nfapply()</li>
-    <li><a href="#nfcall">Promish.nfcall()</li>
+  <li><a href="#promisification">Promishification</a></li>
 </ul>
 
 # Backlog
 
 <ul>
-    <li>TBD</li>
+  <li>TBD</li>
 </ul>
 
 # Contents
 
 <ul>
-    <li>
-        <a href="#interface">Interface</a>
-    </li>
-    <li><a href="#known-issues">Known Issues</a></li>
-    <li><a href="#release-history">Release History</a></li>
+  <li>
+    <a href="#interface">Interface</a>
+    <ul>
+      <li><a href="#include">Include</a></li>
+      <li><a href="#instantiation">Instantiation</a></li>
+      <li><a href="#then">Then</a></li>
+      <li><a href="#catch">Catch</a></li>
+      <li><a href="#finally">Finally</a></li>
+      <li>
+        <a href="#promisification">Promishification</a>
+        <ul>
+          <li><a href="#apply">Apply</a></li>
+          <li><a href="#call">Call</a></li>
+          <li><a href="#post">Post</a></li>
+          <li><a href="#invoke">Invoke</a></li>
+          <li><a href="#promisify">Promisify</a></li>
+          <li><a href="#promisify-all">Promisify All</a></li>
+        </ul>
+      </li>
+      <li><a href="#race">Race</a></li>
+      <li><a href="#any">Any</a></li>
+      <li><a href="#spread">Spread</a></li>
+    </ul>
+  </li>
+  <li><a href="#known-issues">Known Issues</a></li>
+  <li><a href="#release-history">Release History</a></li>
 </ul>
 
 # Interface
@@ -90,6 +113,9 @@ promise.then(
 
 ## Catch
 
+The catch function takes a catch handler that will be called when the promise state is rejected
+ and is a more elegant way to handle errors than using the second then argument.
+
 ```javascript
 // catch all
 promise
@@ -99,6 +125,53 @@ promise
     // return a new Promish or throw a new error (handled as rejection)
     // You can also 'rethrow' the error by returning a new Promish with the error
   });
+```
+
+Promishes also support Error type matching
+
+```javascript
+new Promish(function(resolve, reject) {
+    resolve(JSON.parse(text));
+  })
+  .then(function(json) { ... })
+  .catch(SyntaxError, function(error) {
+    // only called if error is instanceof SyntaxError
+  })
+  .catch(function(error) {
+    // will be called for other types of error
+  });
+```
+
+And also support user supplied error match functions
+
+```javascript
+function isFooString(value) {
+  return ((typeof value) === 'string') && (value.indexOf('foo') >= 0);
+}
+
+promise
+  .then(function(value) { ... })
+  .catch(isFooString, function(error) {
+    // error is a string and contains 'foo'
+  })
+  .catch(function(error) {
+    // called if the not a foo string
+  });
+
+## Finally
+
+A finally handler will be called no matter what state the promise chain gets into.
+ There are no arguments provided to the finally handler and the downstream promise state will depend on the handler code.
+ Typically this will be resolved with the return value (e.g. undefined).
+
+```javascript
+// catch all
+promise
+  .then(function(value) { ... })
+  .catch(function(error) { ... })
+  .finally(function() {
+    // clean stuff up
+  })
 ```
 
 ## Delay
@@ -149,14 +222,19 @@ Promish.all(getPromish1(), getPromish2(), getPromish3())
 
 ## Promisification Calls
 
-The majority of the old Node methods follow the
+The majority of the old asynchronous Node methods follow a basic pattern where the last argument in a function
+ is a callback function and the first argument of that callback function is used to signal errors -
+ if the error argument is truthy, then the call failed and the value of the error will indicate why,
+ otherwise the call succeeded.
 
-## Nfapply
+Promisification involves converting the async pattern into promises - either on the fly or by wrapping functions,
+ methods or even whole objects...
 
-Simple promisification of standard async methods
+### Apply
 
 ```javascript
-Promish.nfapply(fs.readFile, [filename])
+// Note: Promish.nfapply alias included for Q compatability
+Promish.apply(fs.readFile, [filename])
   .then(function(data) {
     // oooh data!
   })
@@ -165,12 +243,11 @@ Promish.nfapply(fs.readFile, [filename])
   });
 ```
 
-## Nfcall
-
-Simple promisification of standard async methods
+### Call
 
 ```javascript
-Promish.nfcall(fs.readFile, filename)
+// Note: Promish.nfcall alias included for Q compatability
+Promish.call(fs.readFile, filename)
   .then(function(data) {
     // oooh data!
   })
@@ -179,7 +256,103 @@ Promish.nfcall(fs.readFile, filename)
   });
 ```
 
+### Post
 
+```javascript
+// call method of target with arguments inline
+// Note: Promish.npost alias
+Promish.invoke(target, value1, value2)
+  .then(function(value) { ... });  
+```
+
+### Invoke
+
+```javascript
+// invoke method of target with array of arguments
+// Note: Promish.ninvoke alias
+Promish.invoke(target, [value1, value2])
+  .then(function(value) { ... });  
+```
+
+### Promisify
+
+Convert a function from async to promise for future use.
+
+```javascript
+var readFile = Promish.promisify(fs.readFile);
+
+readFile(filename)
+  .then(function(data) { ... })
+```
+
+### Promisify All
+
+Promisify all the methods of an object.
+
+There are two modes supported:
+* Proxy Mode (default)
+  * Creates a separate object that contains promisified methods for each method of the target object. The methods typically have the same name
+  * Note: ES6 Proxies eagerly awaited here!
+* In-Place Mode
+  * Adds promisified methods to the object, typically with a suffix to avoid colliding with the actual methods.
+
+```javascript
+
+// Proxy mode:
+var fs = Promish.promisifyAll(require('fs'));
+fs.readFile(filename)
+  .then(function(data) { ... });
+
+// In-Place Mode
+var fs = Promish.promisifyAll(require('fs'), { inPlace: true, suffix: 'Async' });
+fs.readFileAsync(filename)
+  .then(function(data) { ... });
+
+```
+
+## Race
+
+Resolve (or reject) on first fulfilment of an array of promises.
+
+```javascript
+Promish.race([promise1, promise2])
+  .then(function(value) {
+    // first promise to finish was a success
+  })
+  .catch(function(error) {
+    // first promise to finish failed
+  });
+  
+```
+
+## Any
+
+Resolve on first successful promise or reject with array of errors.
+
+```javascript
+Promish.any([promise1, promise2])
+  .then(function(value) {
+    // first successful promise...
+  })
+  .catch(function(errors) {
+    // all promises failed
+  });
+  
+```
+
+## Spread
+
+Convert a resolve value array into arguments
+
+```javascript
+new Promish(function(resolve, reject) {
+    resolve([1,2,3]);
+  })
+  .spread(function(a,b,c) {
+    // a === 1
+    // b === 2
+    // c === 3
+  });
 
 # Known Issues
 
@@ -194,4 +367,4 @@ Promish.nfcall(fs.readFile, filename)
 | 0.0.1   | <ul><li>Initial Version</li></ul> |
 | 0.0.2   | <ul><li><a href="#delay">Promish.delay()</li><li><a href="#defer">Promish.defer()</li></ul> |
 | 0.0.3   | <ul><li><a href="#delay">Promish.delay()</li><li><a href="#defer">Promish.defer()</li><li><a href="#spread">Promish.spread()</li></ul> |
-| 0.0.4   | <ul><li><a href="#nfapply">Promish.nfapply()</li><li><a href="#nfcall">Promish.nfcall()</li></ul> |
+| 0.0.4   | <ul><li><a href="#apply">Promish.apply()</li><li><a href="#call">Promish.call()</li></ul> |

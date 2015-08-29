@@ -7,36 +7,36 @@ describe('Promish', function() {
     describe('call sync', function () {
       describe('1 argument', function () {
         it("resolve path", function () {
-          return helpersh.nfCall.Sync.One.Resolve(Promish);
+          return helpersh.spec.call.Sync.One.Resolve(Promish);
         });
         it("reject path", function () {
-          return helpersh.nfCall.Sync.One.Reject(Promish);
+          return helpersh.spec.call.Sync.One.Reject(Promish);
         });
       });
       describe('2 arguments', function () {
         it("resolve path", function () {
-          return helpersh.nfCall.Sync.Two.Resolve(Promish);
+          return helpersh.spec.call.Sync.Two.Resolve(Promish);
         });
         it("reject path", function () {
-          return helpersh.nfCall.Sync.Two.Reject(Promish);
+          return helpersh.spec.call.Sync.Two.Reject(Promish);
         });
       });
     });
     describe('call async', function () {
       describe('1 argument', function () {
         it("resolve path", function () {
-          return helpersh.nfCall.Async.One.Resolve(Promish);
+          return helpersh.spec.call.Async.One.Resolve(Promish);
         });
         it("reject path", function () {
-          return helpersh.nfCall.Async.One.Reject(Promish);
+          return helpersh.spec.call.Async.One.Reject(Promish);
         });
       });
       describe('2 arguments', function () {
         it("resolve path", function () {
-          return helpersh.nfCall.Async.Two.Resolve(Promish);
+          return helpersh.spec.call.Async.Two.Resolve(Promish);
         });
         it("reject path", function () {
-          return helpersh.nfCall.Async.Two.Reject(Promish);
+          return helpersh.spec.call.Async.Two.Reject(Promish);
         });
       });
     });
