@@ -20,7 +20,7 @@ npm install promish
 # New Features!
 
 <ul>
-  <li><a href="#promisification">Promishification</a></li>
+  <li>Bugfixes and Documentation</li>
 </ul>
 
 # Backlog
@@ -49,6 +49,7 @@ npm install promish
           <li><a href="#invoke">Invoke</a></li>
           <li><a href="#promisify">Promisify</a></li>
           <li><a href="#promisify-all">Promisify All</a></li>
+          <li><a href="#method">Method</a></li>
         </ul>
       </li>
       <li><a href="#race">Race</a></li>
@@ -71,6 +72,7 @@ var Promish = require('promish');
 ## Instantiation
 
 ### Typical use - construct with handler function
+
 ```javascript
 var promise = new Promish(function(resolve, reject) {
   // do something async
@@ -78,19 +80,33 @@ var promise = new Promish(function(resolve, reject) {
 ```
 
 ### 3rd Party Wrapper Mode
+
 ```javascript
 var promise = new Promish(Q());
+
+var promise = new Promish(new Promise( ... ));
 ```
 
 ### Value Wrapper Mode
 ```javascript
+// If the constructor value is not a function, a thenable or an Error,
+// assume it should be a resolve value.
 var promise = new Promish('Resolve Value');
+
+// To explicitly signal resolve, use Promish.resolve
+var promise = Promish.resolve('Resolve Value');
 ```
 
 ### Error Wrapper Mode
 ```javascript
+// If the constructor value is an Error type, it will be interpreted as rejection
 var promise = new Promish(new Error('This promise is rejected'));
+
+// To explicitly signal something is rejection use Promish.reject
+var promise = Promish.reject('This is not an error object, but reject with it anyway')
 ```
+
+
 
 ## Then
 
@@ -157,6 +173,7 @@ promise
   .catch(function(error) {
     // called if the not a foo string
   });
+```
 
 ## Finally
 
@@ -209,15 +226,6 @@ function readAFile(filename) {
   
   return deferred.promise;
 }
-```
-
-## Spread
-
-```javascript
-Promish.all(getPromish1(), getPromish2(), getPromish3())
-  .spread(function(value1, value2, value3) {
-    // use values...
-  });
 ```
 
 ## Promisification Calls
@@ -287,7 +295,7 @@ readFile(filename)
 
 ### Promisify All
 
-Promisify all the methods of an object.
+Promisify all the async methods of an object.
 
 There are two modes supported:
 * Proxy Mode (default)
@@ -310,9 +318,52 @@ fs.readFileAsync(filename)
 
 ```
 
+### Method
+
+Wrap a synchronous function or method so that it always returns a promise
+
+```javascript
+var myFunc = Promish.method(function(value) {
+  // can throw
+  if (!value) throw new Error('Not zero!');
+  
+  // can return value
+  if (value > 0) return value;
+  
+  // can return promish()
+  return Promish.resolve(value);
+});
+
+myFunc(1234)
+  .then(function(value) {
+    // ...
+  });
+
+// also works as member functions
+MyClass.prototype.func = Promish.method(function(value) {
+  // this is what you think it is
+  return this.value = value;
+});
+
+new MyClass(7).func
+  .then(function(value) {
+    // ...
+  });
+
+```
+
+## All
+
+Promish wraps the native implementation of all.
+
+```javascript
+Promish.all([getPromise1(), getPromise2()])
+  .then(function(values) { ... });
+```
+
 ## Race
 
-Resolve (or reject) on first fulfilment of an array of promises.
+Promish wraps the native implementation of race.
 
 ```javascript
 Promish.race([promise1, promise2])
@@ -345,13 +396,11 @@ Promish.any([promise1, promise2])
 Convert a resolve value array into arguments
 
 ```javascript
-new Promish(function(resolve, reject) {
-    resolve([1,2,3]);
-  })
+Promish.all(getPromish1(), getPromish2(), getPromish3())
   .spread(function(a,b,c) {
-    // a === 1
-    // b === 2
-    // c === 3
+    // a === value from getPromish1
+    // b === value from getPromish2
+    // c === value from getPromish3
   });
 
 # Known Issues
@@ -368,3 +417,6 @@ new Promish(function(resolve, reject) {
 | 0.0.2   | <ul><li><a href="#delay">Promish.delay()</li><li><a href="#defer">Promish.defer()</li></ul> |
 | 0.0.3   | <ul><li><a href="#delay">Promish.delay()</li><li><a href="#defer">Promish.defer()</li><li><a href="#spread">Promish.spread()</li></ul> |
 | 0.0.4   | <ul><li><a href="#apply">Promish.apply()</li><li><a href="#call">Promish.call()</li></ul> |
+| 0.0.5   | <ul><li><a href="#promisification">Promishification</a></li></ul> |
+| 0.0.6   | <ul><li>Bugfixes and Documentation</li></ul> |
+

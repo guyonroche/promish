@@ -1,6 +1,6 @@
 {
     "name": "promish",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "ES6 Promise Shim",
     "private": false,
     "license": "MIT",
@@ -14,7 +14,10 @@
         "url": "https://github.com/guyonroche/promish.git"
     },
     "keywords": [
-        "ES6", "Promise", "Shim", "EcmaScript", "Promises", "then", "catch", "finally", "race", "all", "any"
+        "ES6", "Promise", "Shim", "EcmaScript", "Promises", "resolve", "reject",
+        "then", "catch", "finally",
+        "race", "all", "any",
+        "Promisification", "call", "apply"
     ],
     "dependencies": {
     },
