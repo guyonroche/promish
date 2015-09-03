@@ -139,7 +139,8 @@ promise
     // Something async has failed with an error.
     // Just like with then(), you can return a resolve value,
     // return a new Promish or throw a new error (handled as rejection)
-    // You can also 'rethrow' the error by returning a new Promish with the error
+    // You can also 'rethrow' the error by returning a new Promish
+    // with the error
   });
 ```
 
@@ -402,6 +403,7 @@ Promish.all(getPromish1(), getPromish2(), getPromish3())
     // b === value from getPromish2
     // c === value from getPromish3
   });
+```
 
 # Known Issues
 
