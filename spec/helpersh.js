@@ -111,6 +111,16 @@ var helpersh = module.exports = {
     });
   },
   
+  
+  
+  curry: {
+    timeout: function(timeout, error, value) {
+      return function(callback) {
+        setTimeout(function(){ callback(error, value); }, timeout);
+      }
+    }
+  },
+  
   defer: function(result, value, timeout) {
     var deferred = Promish.defer();
     function handler() {
@@ -174,6 +184,38 @@ var helpersh = module.exports = {
   },
   
   spec: {
+    
+    some: function(count, values) {
+      return {
+        title: 'expect ' + count + ', resolve ' + values.map(function(value) { return value instanceof Error ? 'N' : 'Y' }).join(''),
+        example: function() {
+          return new Promise(function(resolve, reject) {
+            var promises = values.map(function(value, index) {
+              var error = value instanceof Error && value;
+              return Promish.call(helpersh.curry.timeout(index * 10, error, value));
+            });
+            var resolves = values.filter(function(value) {
+              return !(value instanceof Error);
+            });
+            Promish.some(promises, count)
+              .then(function(results) {
+                expect(resolves.length).to.be.at.least(count);
+                expect(results.length).to.equal(count);
+                for (var i = 0; i < count; i++) {
+                  expect(results[i]).to.equal(resolves[i]);
+                }
+                resolve();
+              })
+              .catch(function(errors) {
+                expect(resolves.length).to.be.below(count);
+                resolve();
+              })
+              .catch(Unexpected.catch(resolve, reject));
+          });
+        }
+      }
+    },
+    
     apply: {
       Sync: {
         One: {
