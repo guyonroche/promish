@@ -20,7 +20,7 @@ npm install promish
 # New Features!
 
 <ul>
-  <li>Bugfixes and Documentation</li>
+  <li><a href="some">Some</a></li>
 </ul>
 
 # Backlog
@@ -373,6 +373,21 @@ Promish.race([promise1, promise2])
   })
   .catch(function(error) {
     // first promise to finish failed
+  });
+  
+```
+
+## Some
+
+Resolve on first N successful promises or reject with array of errors.
+
+```javascript
+Promish.some([promise1, promise2, promise3], 2)
+  .then(function(values) {
+    // first 2 successful promises...
+  })
+  .catch(function(errors) {
+    // at least 2 promises failed
   });
   
 ```
