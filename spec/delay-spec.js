@@ -2,8 +2,8 @@
 var expect = require('chai').expect
 var Promish = require('../lib/promish');
 
-var HrStopwatch = require('./hr-stopwatch');
-var helpersh = require('./helpersh');
+var HrStopwatch = require('../test-utils/hr-stopwatch');
+var helpersh = require('../test-utils/helpersh');
 var EReshult = helpersh.EReshult;
 var Errorsh = helpersh.Errorsh;
 var Unexpected = helpersh.handlersh.unexpected;

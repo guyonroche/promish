@@ -1,6 +1,6 @@
 'use strict';
 var Promish = require('../lib/promish');
-var helpersh = require('./helpersh');
+var helpersh = require('../test-utils/helpersh');
 
 describe('Promish', function() {
   describe('nfcall', function () {

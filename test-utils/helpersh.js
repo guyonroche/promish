@@ -416,7 +416,7 @@ var helpersh = module.exports = {
           resolve: function(Type, options) {
             var fsp = Type.promisifyAll(fs, options);
             return new Promise(function(resolve, reject) {
-              fsp.readFileAsync('spec/helpersh.js')
+              fsp.readFileAsync('test-utils/helpersh.js')
                 .then(function(data) {
                   var contents = data.toString();
                   expect(contents).to.contain('Any text I put right here actually!');

@@ -53,6 +53,7 @@ npm install promish
         </ul>
       </li>
       <li><a href="#race">Race</a></li>
+      <li><a href="some">Some</a></li>
       <li><a href="#any">Any</a></li>
       <li><a href="#spread">Spread</a></li>
     </ul>

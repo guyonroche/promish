@@ -2,7 +2,7 @@
 var expect = require('chai').expect
 var Promish = require('../lib/promish');
 
-var helpersh = require('./helpersh');
+var helpersh = require('../test-utils/helpersh');
 var EReshult = helpersh.EReshult;
 var Errorsh = helpersh.Errorsh;
 var Unexpected = helpersh.handlersh.unexpected;

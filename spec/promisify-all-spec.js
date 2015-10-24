@@ -3,11 +3,8 @@ var util = require('util');
 var expect = require('chai').expect
 
 var Promish = require('../lib/promish');
-var helpersh = require('./helpersh');
+var helpersh = require('../test-utils/helpersh');
 var Unexpected = helpersh.handlersh.unexpected;
-
-var fsp = Promish.promisifyAll(require('fs'));
-
 
 describe('Promish', function() {
   describe('promisifyAll', function () {
