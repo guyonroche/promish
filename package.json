@@ -1,6 +1,6 @@
 {
     "name": "promish",
-    "version": "4.1.2",
+    "version": "4.2.1",
     "description": "ES6 Promise Shim",
     "private": false,
     "license": "MIT",
@@ -19,6 +19,9 @@
         "race", "all", "any",
         "Promisification", "call", "apply"
     ],
+    "engines" : {
+      "node" : ">=4.0.0"
+    },
     "dependencies": {
     },
     "devDependencies": {
