@@ -10,7 +10,7 @@ The Promish module creates a wrapper around the EcmaScript 6 Promise class.
  It adds some of the useful features found in many of the other popular promise libraries such as Q and Bluebird.
  It is designed to be interchangeable with the ES6 Promise as its interface is a superset of the Promise class.
 
-This is probably one of the smallest promise libraries - currently around 7.5kb (smaller than this README!)
+This is probably one of the smallest promise libraries - currently around 6.5kb (smaller than this README!)
  and comes with no dependencies (other than ES6 Promises).
 
 # Installation
@@ -27,6 +27,7 @@ npm install promish
       <li>For compatability with older 0.x versions, specify Promish version 0.0.8 in your package.json</li>
     </ul>
   </li>
+  <li>Refactored to extend Promise instead of wrapping</li>
 </ul>
 
 # Backlog

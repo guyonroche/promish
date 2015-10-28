@@ -11,7 +11,7 @@ describe('Promish', function() {
 
     it('should resolve with value', function () {
       return new Promise(function(resolve, reject) {
-        new Promish(function(res, rej) {
+        var promish = new Promish(function(res, rej) {
             res(7);
           })
           .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'))
@@ -20,6 +20,8 @@ describe('Promish', function() {
             resolve();
           })
           .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+        
+        expect(promish).to.be.instanceOf(Promish);
       });
     });
     

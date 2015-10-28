@@ -7,6 +7,13 @@ var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
   describe('any', function () {
+    it('should have the correct type', function() {
+      var promish = Promish.any([
+          Promish.call(helpersh.curry.timeout(10, null, 1)),
+          Promish.call(helpersh.curry.timeout(20, null, 2))
+        ]);
+      expect(promish).to.be.instanceOf(Promish);
+    });
     it("all resolve", function () {
       return new Promise(function(resolve, reject) {
         Promish.any([

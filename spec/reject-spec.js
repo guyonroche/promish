@@ -7,6 +7,10 @@ var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
   describe('reject', function () {
+    it('should have the correct type', function() {
+      var promish = Promish.reject('fail!');
+      expect(promish).to.be.instanceOf(Promish);
+    });
     it('should call the onRejected handler with the errorvalue', function () {
       return new Promise(function(resolve, reject) {
         Promish.reject('fail')

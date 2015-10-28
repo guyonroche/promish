@@ -7,6 +7,10 @@ var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
   describe('resolve', function () {
+    it('should have the correct type', function() {
+      var promish = Promish.resolve('Hello, World!');
+      expect(promish).to.be.instanceOf(Promish);
+    });
     it('should call the onResolved handler with the resolved value', function () {
       return new Promise(function(resolve, reject) {
         Promish.resolve('Hello, World!')

@@ -7,6 +7,10 @@ var EReshult = helpersh.EReshult;
 
 describe('Promish', function() {
   describe('then', function () {
+    it('should have the correct type', function() {
+      var promish = new Promish(5).then(function() {});
+      expect(promish).to.be.instanceOf(Promish);
+    });
     describe('resolve', function () {
       it('should call the onResolved handler with the resolved value', function () {
         return new Promise(function(resolve, reject) {
