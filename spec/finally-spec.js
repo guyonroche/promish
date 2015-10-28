@@ -9,6 +9,9 @@ var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
   describe('finally', function () {
+    it("Isn't already in Promise", function() {
+      expect(Promise.finally).not.to.be.defined;
+    });
     it('should call the onFinally with no value after resolve', function () {
       return new Promise(function(resolve, reject) {
         helpersh.paushe(EReshult.RESOLVE, 5)

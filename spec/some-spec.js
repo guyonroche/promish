@@ -7,6 +7,9 @@ var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
   describe('some', function () {
+    it("Isn't already in Promise", function() {
+      expect(Promise.some).not.to.be.defined;
+    });
     it("4, resolve YYYY", function () {
       return new Promise(function(resolve, reject) {
         Promish.some([
