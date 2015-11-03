@@ -420,13 +420,23 @@ Promish.any([promise1, promise2])
 Convert a resolve value array into arguments
 
 ```javascript
-Promish.all(getPromish1(), getPromish2(), getPromish3())
+Promish.all([getPromish1(), getPromish2(), getPromish3()])
   .spread(function(a,b,c) {
     // a === value from getPromish1
     // b === value from getPromish2
     // c === value from getPromish3
   });
 ```
+
+Spread will also convert an array of promises into their resolved values
+new Promish(function(resolve) {
+    resolve([getPromish1(), getPromish2(), getPromish3()])
+  })
+  .spread(function(a,b,c) {
+    // a === value from getPromish1
+    // b === value from getPromish2
+    // c === value from getPromish3
+  });
 
 # Known Issues
 

@@ -38,5 +38,25 @@ describe('Promish', function() {
           .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
       });
     });
+
+    it("should spread promises resolved values into the handler's arguments", function () {
+      return new Promise(function(resolve, reject) {
+        new Promish(function(resolve) {
+            resolve([
+              helpersh.paushe(EReshult.RESOLVE, 1),
+              helpersh.paushe(EReshult.RESOLVE, 2),
+              helpersh.paushe(EReshult.RESOLVE, 3)
+            ]);
+          })
+          .spread(function(a,b,c) {
+            expect(a).to.equal(1);
+            expect(b).to.equal(2);
+            expect(c).to.equal(3);
+            expect(arguments.length).to.equal(3);
+            resolve();
+          })
+          .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'));
+      });
+    });
   });
 });
