@@ -20,7 +20,7 @@ npm install promish
 # New Features!
 
 <ul>
-  <li>Added implict Promish.all to spread</li>
+  <li>finally() must not swallow rejection.</li>
 </ul>
 
 # Backlog
@@ -448,4 +448,5 @@ new Promish(function(resolve) {
 | 0.0.5   | <ul><li><a href="#promisification">Promishification</a></li></ul> |
 | 0.0.6   | <ul><li>Bugfixes and Documentation</li></ul> |
 | 4.2.2   | <ul><li>Updated for compatability with Node v4.<ul><li>Version number matches the version of Node I used when this was published</li><li>For compatability with older 0.x versions, specify Promish version 0.0.8 in your package.json</li></ul></li><li>Refactored to extend Promise instead of wrapping</li></ul> |
+| 4.2.3   | <ul><li>Added implict Promish.all to spread</li></ul> |
 

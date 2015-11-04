@@ -32,5 +32,27 @@ describe('Promish', function() {
           });
       });
     });
+    
+    it('should pass on values', function () {
+      return new Promise(function(resolve, reject) {
+        helpersh.paushe(EReshult.RESOLVE, 7)
+          .finally(() => {})
+          .then(function(value) {
+            expect(value).to.equal(7);
+            resolve();
+          });
+      });
+    });
+    it('should not swallow rejection', function () {
+      return new Promise(function(resolve, reject) {
+        helpersh.paushe(EReshult.REJECT, 5)
+          .finally(() => {})
+          .then(Unexpected.then(resolve, reject))
+          .catch(function(error) {
+            expect(error).to.equal(5);
+            resolve();
+          });
+      });
+    });
   });
 });
