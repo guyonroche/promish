@@ -1,9 +1,8 @@
 'use strict';
-var expect = require('chai').expect
+var expect = require('chai').expect;
 var Promish = require('../lib/promish');
 
 var helpersh = require('../test-utils/helpersh');
-var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
   describe('race', function () {

@@ -1,6 +1,5 @@
 'use strict';
-var expect = require('chai').expect
-var Promish = require('../lib/promish');
+var expect = require('chai').expect;
 
 var helpersh = require('../test-utils/helpersh');
 var EReshult = helpersh.EReshult;

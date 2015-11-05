@@ -1,5 +1,5 @@
 'use strict';
-var expect = require('chai').expect
+var expect = require('chai').expect;
 var Promish = require('../lib/promish');
 
 var helpersh = require('../test-utils/helpersh');
@@ -13,7 +13,7 @@ describe('Promish', function() {
     });
     describe('resolve', function () {
       it('should call the onResolved handler with the resolved value', function () {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function(resolve) {
           helpersh.paushe(EReshult.RESOLVE, 'Hello, World!')
             .then(function(value) {
               expect(value).to.equal('Hello, World!');
@@ -28,7 +28,7 @@ describe('Promish', function() {
         return new Promise(function(resolve, reject) {
           helpersh.paushe(EReshult.REJECT, new Error('Goodbye, Cruel World!'))
             .then(
-              function(value) {
+              function() {
                 reject(new Error('onResolve called when onReject expected'));
               },
               function(error) {

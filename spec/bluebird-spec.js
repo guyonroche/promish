@@ -1,16 +1,15 @@
 'use strict';
-var expect = require('chai').expect
+var expect = require('chai').expect;
 var Promish = require('../lib/promish');
 var Bluebird = require('bluebird');
 
 var helpersh = require('../test-utils/helpersh');
-var EReshult = helpersh.EReshult;
 var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
   describe('Bluebird', function () {
     describe('resolve', function () {
-      it("should resolve with Bluebird's resolve value", function () {
+      it('should resolve with Bluebird\'s resolve value', function () {
         return new Promise(function(resolve, reject) {
           new Promish(Bluebird.resolve(8))
             .then(function(value) {
@@ -23,7 +22,7 @@ describe('Promish', function() {
     });
     
     describe('reject', function () {
-      it("should reject with Bluebird's reject value", function () {
+      it('should reject with Bluebird\'s reject value', function () {
         return new Promise(function(resolve, reject) {
           new Promish(Bluebird.reject(9))
             .then(Unexpected.then(resolve, reject))
@@ -42,10 +41,10 @@ describe('Bluebird', function() {
   describe('promisifyAll', function () {
     describe('fs', function () {
       describe('readFile', function () {
-        it("resolve", function () {
+        it('resolve', function () {
           return helpersh.spec.promisifyAll.fs.readFile.resolve(Bluebird);
         });
-        it("reject", function () {
+        it('reject', function () {
           return helpersh.spec.promisifyAll.fs.readFile.reject(Bluebird);
         });
       });

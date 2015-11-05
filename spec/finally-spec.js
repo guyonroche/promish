@@ -1,15 +1,13 @@
 'use strict';
-var expect = require('chai').expect
-var Promish = require('../lib/promish');
+var expect = require('chai').expect;
 
 var helpersh = require('../test-utils/helpersh');
 var EReshult = helpersh.EReshult;
-var Errorsh = helpersh.Errorsh;
 var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
   describe('finally', function () {
-    it("Isn't already in Promise", function() {
+    it('Isn\'t already in Promise', function() {
       expect(Promise.finally).not.to.be.defined;
     });
     it('should call the onFinally with no value after resolve', function () {
@@ -24,7 +22,7 @@ describe('Promish', function() {
     });
 
     it('should call the onFinally with no value after reject', function () {
-      return new Promise(function(resolve, reject) {
+      return new Promise(function(resolve) {
         helpersh.paushe(EReshult.REJECT, 5)
           .finally(function(value) {
             expect(value).not.to.be.defined;
@@ -34,7 +32,7 @@ describe('Promish', function() {
     });
     
     it('should pass on values', function () {
-      return new Promise(function(resolve, reject) {
+      return new Promise(function(resolve) {
         helpersh.paushe(EReshult.RESOLVE, 7)
           .finally(() => {})
           .then(function(value) {

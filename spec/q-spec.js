@@ -1,11 +1,10 @@
 'use strict';
-var expect = require('chai').expect
+var expect = require('chai').expect;
 var Promish = require('../lib/promish');
 var Q = require('q');
 
 var HrStopwatch = require('../test-utils/hr-stopwatch');
 var helpersh = require('../test-utils/helpersh');
-var EReshult = helpersh.EReshult;
 var Unexpected = helpersh.handlersh.unexpected;
 
 // Check Promishes work with Q promises
@@ -13,15 +12,17 @@ describe('Promish', function() {
   describe('Q', function () {
     describe('resolve', function () {
       it('should resolve with Q value', function () {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function(resolve) {
+          /* jshint -W064 */
           new Promish(Q(6))
             .then(function(value) {
               expect(value).to.equal(6);
               resolve();
-            })
+            });
+          /* jshint +W064 */
         });
       });
-      it("should resolve with Q's resolve value", function () {
+      it('should resolve with Q\'s resolve value', function () {
         return new Promise(function(resolve, reject) {
           new Promish(Q.resolve(8))
             .then(function(value) {
@@ -34,7 +35,7 @@ describe('Promish', function() {
     });
     
     describe('reject', function () {
-      it("should reject with Q's rejectvalue", function () {
+      it('should reject with Q\'s rejectvalue', function () {
         return new Promise(function(resolve, reject) {
           new Promish(Q.reject(9))
             .then(Unexpected.then(resolve, reject))
@@ -96,36 +97,36 @@ describe('Q', function() {
   describe('nfapply', function () {
     describe('call sync', function () {
       describe('1 argument', function () {
-        it("resolve path", function () {
+        it('resolve path', function () {
           return helpersh.spec.apply.Sync.One.Resolve(Q);
         });
-        it("reject path", function () {
+        it('reject path', function () {
           return helpersh.spec.apply.Sync.One.Reject(Q);
         });
       });
       describe('2 arguments', function () {
-        it("resolve path", function () {
+        it('resolve path', function () {
           return helpersh.spec.apply.Sync.Two.Resolve(Q);
         });
-        it("reject path", function () {
+        it('reject path', function () {
           return helpersh.spec.apply.Sync.Two.Reject(Q);
         });
       });
     });
     describe('call async', function () {
       describe('1 argument', function () {
-        it("resolve path", function () {
+        it('resolve path', function () {
           return helpersh.spec.apply.Async.One.Resolve(Q);
         });
-        it("reject path", function () {
+        it('reject path', function () {
           return helpersh.spec.apply.Async.One.Reject(Q);
         });
       });
       describe('2 arguments', function () {
-        it("resolve path", function () {
+        it('resolve path', function () {
           return helpersh.spec.apply.Async.Two.Resolve(Q);
         });
-        it("reject path", function () {
+        it('reject path', function () {
           return helpersh.spec.apply.Async.Two.Reject(Q);
         });
       });
@@ -135,36 +136,36 @@ describe('Q', function() {
   describe('nfcall', function () {
     describe('call sync', function () {
       describe('1 argument', function () {
-        it("resolve path", function () {
+        it('resolve path', function () {
           return helpersh.spec.call.Sync.One.Resolve(Q);
         });
-        it("reject path", function () {
+        it('reject path', function () {
           return helpersh.spec.call.Sync.One.Reject(Q);
         });
       });
       describe('2 arguments', function () {
-        it("resolve path", function () {
+        it('resolve path', function () {
           return helpersh.spec.call.Sync.Two.Resolve(Q);
         });
-        it("reject path", function () {
+        it('reject path', function () {
           return helpersh.spec.call.Sync.Two.Reject(Q);
         });
       });
     });
     describe('call async', function () {
       describe('1 argument', function () {
-        it("resolve path", function () {
+        it('resolve path', function () {
           return helpersh.spec.call.Async.One.Resolve(Q);
         });
-        it("reject path", function () {
+        it('reject path', function () {
           return helpersh.spec.call.Async.One.Reject(Q);
         });
       });
       describe('2 arguments', function () {
-        it("resolve path", function () {
+        it('resolve path', function () {
           return helpersh.spec.call.Async.Two.Resolve(Q);
         });
-        it("reject path", function () {
+        it('reject path', function () {
           return helpersh.spec.call.Async.Two.Reject(Q);
         });
       });

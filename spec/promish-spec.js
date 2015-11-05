@@ -1,9 +1,8 @@
 'use strict';
-var expect = require('chai').expect
+var expect = require('chai').expect;
 var Promish = require('../lib/promish');
 
 var helpersh = require('../test-utils/helpersh');
-var EReshult = helpersh.EReshult;
 var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
@@ -11,7 +10,7 @@ describe('Promish', function() {
 
     it('should resolve with value', function () {
       return new Promise(function(resolve, reject) {
-        var promish = new Promish(function(res, rej) {
+        var promish = new Promish(function(res) {
             res(7);
           })
           .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error here'))

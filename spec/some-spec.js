@@ -1,5 +1,5 @@
 'use strict';
-var expect = require('chai').expect
+var expect = require('chai').expect;
 var Promish = require('../lib/promish');
 
 var helpersh = require('../test-utils/helpersh');
@@ -7,10 +7,10 @@ var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
   describe('some', function () {
-    it("Isn't already in Promise", function() {
+    it('Isn\'t already in Promise', function() {
       expect(Promise.some).not.to.be.defined;
     });
-    it("4, resolve YYYY", function () {
+    it('4, resolve YYYY', function () {
       return new Promise(function(resolve, reject) {
         Promish.some([
           Promish.call(helpersh.curry.timeout(10, null, 1)),
@@ -28,7 +28,7 @@ describe('Promish', function() {
           .catch(Unexpected.catch(resolve, reject));
       });
     });
-    it("3, resolve YYYY", function () {
+    it('3, resolve YYYY', function () {
       return new Promise(function(resolve, reject) {
         Promish.some([
           Promish.call(helpersh.curry.timeout(10, null, 1)),
@@ -46,7 +46,7 @@ describe('Promish', function() {
           .catch(Unexpected.catch(resolve, reject));
       });
     });
-    it("2, resolve YYYY", function () {
+    it('2, resolve YYYY', function () {
       return new Promise(function(resolve, reject) {
         Promish.some([
           Promish.call(helpersh.curry.timeout(10, null, 1)),
@@ -64,7 +64,7 @@ describe('Promish', function() {
           .catch(Unexpected.catch(resolve, reject));
       });
     });
-    it("1, resolve YYYY", function () {
+    it('1, resolve YYYY', function () {
       return new Promise(function(resolve, reject) {
         Promish.some([
           Promish.call(helpersh.curry.timeout(10, null, 1)),
@@ -82,7 +82,7 @@ describe('Promish', function() {
           .catch(Unexpected.catch(resolve, reject));
       });
     });
-    it("4, resolve YYYN", function () {
+    it('4, resolve YYYN', function () {
       return new Promise(function(resolve, reject) {
         Promish.some([
           Promish.call(helpersh.curry.timeout(10, null, 1)),
@@ -99,7 +99,7 @@ describe('Promish', function() {
           .catch(Unexpected.catch(resolve, reject));
       });
     });
-    it("4, resolve NYYY", function () {
+    it('4, resolve NYYY', function () {
       return new Promise(function(resolve, reject) {
         Promish.some([
           Promish.call(helpersh.curry.timeout(10, new Error('fe'))),
@@ -116,7 +116,7 @@ describe('Promish', function() {
           .catch(Unexpected.catch(resolve, reject));
       });
     });
-    it("3, resolve YYYN", function () {
+    it('3, resolve YYYN', function () {
       return new Promise(function(resolve, reject) {
         Promish.some([
           Promish.call(helpersh.curry.timeout(10, null, 1)),

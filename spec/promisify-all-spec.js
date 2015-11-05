@@ -1,20 +1,17 @@
 'use strict';
-var util = require('util');
-var expect = require('chai').expect
 
 var Promish = require('../lib/promish');
 var helpersh = require('../test-utils/helpersh');
-var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
   describe('promisifyAll', function () {
     describe('in-place', function () {
       describe('fs', function () {
         describe('readFile', function () {
-          it("resolve", function () {
+          it('resolve', function () {
             return helpersh.spec.promisifyAll.fs.readFile.resolve(Promish, {inPlace: true});
           });
-          it("reject", function () {
+          it('reject', function () {
             return helpersh.spec.promisifyAll.fs.readFile.reject(Promish, {inPlace: true});
           });
         });
@@ -64,10 +61,10 @@ describe('Promish', function() {
     describe('proxy', function () {
       describe('fs', function () {
         describe('readFile', function () {
-          it("resolve", function () {
+          it('resolve', function () {
             return helpersh.spec.promisifyAll.fs.readFile.resolve(Promish, {suffix: 'Async'});
           });
-          it("reject", function () {
+          it('reject', function () {
             return helpersh.spec.promisifyAll.fs.readFile.reject(Promish, {suffix: 'Async'});
           });
         });

@@ -1,5 +1,5 @@
 'use strict';
-var expect = require('chai').expect
+var expect = require('chai').expect;
 var Promish = require('../lib/promish');
 
 var helpersh = require('../test-utils/helpersh');
@@ -8,7 +8,7 @@ var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {
   describe('spread', function () {
-    it("should spread an array into the handler's arguments", function () {
+    it('should spread an array into the handler\'s arguments', function () {
       return new Promise(function(resolve, reject) {
         helpersh.paushe(EReshult.RESOLVE, [1,2,3])
           .spread(function(a,b,c) {
@@ -22,7 +22,7 @@ describe('Promish', function() {
       });
     });
     
-    it("should spread Promish.all results into the handler's arguments", function () {
+    it('should spread Promish.all results into the handler\'s arguments', function () {
       return new Promise(function(resolve, reject) {
         Promish.all([
           helpersh.paushe(EReshult.RESOLVE, 1),
@@ -39,7 +39,7 @@ describe('Promish', function() {
       });
     });
 
-    it("should spread promises resolved values into the handler's arguments", function () {
+    it('should spread promises resolved values into the handler\'s arguments', function () {
       return new Promise(function(resolve, reject) {
         new Promish(function(resolve) {
             resolve([

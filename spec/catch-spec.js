@@ -1,5 +1,5 @@
 'use strict';
-var expect = require('chai').expect
+var expect = require('chai').expect;
 var Promish = require('../lib/promish');
 
 var helpersh = require('../test-utils/helpersh');
@@ -98,7 +98,7 @@ describe('Promish', function() {
             // 'rethrow' the error
             return new Promish(error);
           })
-          .catch(function(error) {
+          .catch(function() {
             handleCount++;
           })
           .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error which should have been handled earlier'))

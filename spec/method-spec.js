@@ -1,5 +1,5 @@
 'use strict';
-var expect = require('chai').expect
+var expect = require('chai').expect;
 var Promish = require('../lib/promish');
 
 var helpersh = require('../test-utils/helpersh');
@@ -47,7 +47,7 @@ describe('Promish', function() {
     it('return this.value', function () {
       return new Promise(function(resolve, reject) {
         var A = function(value) { this.value = value; };
-        A.prototype.f = Promish.method(function(value) {
+        A.prototype.f = Promish.method(function() {
           return this.value * 2;
         });
         var a = new A(6);

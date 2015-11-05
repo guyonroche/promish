@@ -25,13 +25,17 @@
     "dependencies": {
     },
     "devDependencies": {
+        "bluebird": "*",
         "chai": "*",
+        "jshint": "2.8.x",
         "mocha": "*",
-        "q": "*",
-        "bluebird": "*"
+        "q": "*"
     },
     "scripts": {
-        "test": "mocha spec"
+      "jshint": "npm run jshint-lib & npm run jshint-spec",
+      "jshint-lib": "node node_modules/jshint/bin/jshint --config ./.jshintrc ./lib --verbose",
+      "jshint-spec": "node node_modules/jshint/bin/jshint --config ./.jshintrc-spec ./spec --verbose",
+      "test": "mocha spec"
     },
     "main": "lib/promish.js",
     "files": [

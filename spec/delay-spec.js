@@ -1,11 +1,9 @@
 'use strict';
-var expect = require('chai').expect
-var Promish = require('../lib/promish');
+var expect = require('chai').expect;
 
 var HrStopwatch = require('../test-utils/hr-stopwatch');
 var helpersh = require('../test-utils/helpersh');
 var EReshult = helpersh.EReshult;
-var Errorsh = helpersh.Errorsh;
 var Unexpected = helpersh.handlersh.unexpected;
 
 describe('Promish', function() {

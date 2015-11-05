@@ -1,5 +1,5 @@
 'use strict';
-var expect = require('chai').expect
+var expect = require('chai').expect;
 var Promish = require('../lib/promish');
 
 var helpersh = require('../test-utils/helpersh');
@@ -14,7 +14,7 @@ describe('Promish', function() {
         ]);
       expect(promish).to.be.instanceOf(Promish);
     });
-    it("all resolve", function () {
+    it('all resolve', function () {
       return new Promise(function(resolve, reject) {
         Promish.any([
           Promish.call(helpersh.curry.timeout(10, null, 1)),
@@ -27,7 +27,7 @@ describe('Promish', function() {
           .catch(Unexpected.catch(resolve, reject));
       });
     });
-    it("one resolve", function () {
+    it('one resolve', function () {
       return new Promise(function(resolve, reject) {
         Promish.any([
           Promish.call(helpersh.curry.timeout(10, new Error('fie'))),
@@ -40,7 +40,7 @@ describe('Promish', function() {
           .catch(Unexpected.catch(resolve, reject));
       });
     });
-    it("none resolve", function () {
+    it('none resolve', function () {
       return new Promise(function(resolve, reject) {
         Promish.any([
           Promish.call(helpersh.curry.timeout(10, new Error('fie'))),
