@@ -1,6 +1,6 @@
 {
     "name": "promish",
-    "version": "4.2.4",
+    "version": "4.2.5",
     "description": "ES6 Promise Shim",
     "private": false,
     "license": "MIT",
@@ -16,8 +16,8 @@
     "keywords": [
         "ES6", "Promise", "Shim", "EcmaScript", "Promises", "resolve", "reject",
         "then", "catch", "finally",
-        "race", "all", "any",
-        "Promisification", "call", "apply"
+        "race", "all", "any", "some", "spread",
+        "Promisify","Promisification", "call", "apply"
     ],
     "engines" : {
       "node" : ">=4.0.0"
