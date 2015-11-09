@@ -174,8 +174,13 @@ promise
 ## Finally
 
 A finally handler will be called no matter what state the promise chain gets into.
- There are no arguments provided to the finally handler and the downstream promise state will depend on the handler code.
- Typically this will be resolved with the return value (e.g. undefined).
+ There are no arguments provided to the finally handler and the downstream promise state will typically reflect
+ the state of the promise before the finally handler is called.
+ If the finally handler returns a promise, finally will wait for the promise to resolve before propagating the
+ incoming promise value.
+ If the finally handler's promise is rejected, the new rejected state will override the incoming promise state
+ and the new state will take on the new rejection state of the finally handler's promise.
+ This will also be the case if the finally handler throws an exception.
 
 ```javascript
 // catch all
