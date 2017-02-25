@@ -110,9 +110,7 @@ var helpersh = module.exports = {
       },timeout);
     });
   },
-  
-  
-  
+
   curry: {
     timeout: function(timeout, error, value) {
       return function(callback) {
@@ -542,6 +540,56 @@ var helpersh = module.exports = {
             }
           }
         }
+      }
+    },
+
+    map: {
+      Values: function(Type) {
+        return new Promise(function(resolve, reject) {
+          Type.resolve([1,2,3])
+            .map(function(a) { return a * 2; })
+            .spread(function(a,b,c) {
+              expect(a).to.equal(2);
+              expect(b).to.equal(4);
+              expect(c).to.equal(6);
+            });
+        });
+      },
+      Promises: function(Type) {
+        return new Promise(function(resolve, reject) {
+          Type.resolve([Type.resolve(1),Type.resolve(2),Type.resolve(3)])
+            .map(function(a) { return a * 2; })
+            .spread(function(a,b,c) {
+              expect(a).to.equal(2);
+              expect(b).to.equal(4);
+              expect(c).to.equal(6);
+            });
+        });
+      }
+    },
+
+    reduce: {
+      Values: function(Type) {
+        return new Promise(function(resolve, reject) {
+          Type.resolve([1,2,3])
+            .map(function(a) { return a * 2; })
+            .spread(function(a,b,c) {
+              expect(a).to.equal(2);
+              expect(b).to.equal(4);
+              expect(c).to.equal(6);
+            });
+        });
+      },
+      Promises: function(Type) {
+        return new Promise(function(resolve, reject) {
+          Type.resolve([Type.resolve(1),Type.resolve(2),Type.resolve(3)])
+            .map(function(a) { return a * 2; })
+            .spread(function(a,b,c) {
+              expect(a).to.equal(2);
+              expect(b).to.equal(4);
+              expect(c).to.equal(6);
+            });
+        });
       }
     }
   },

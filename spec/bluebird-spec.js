@@ -90,5 +90,15 @@ describe('Bluebird', function() {
         });
       });
     });
-  });  
+  });
+
+  describe('map', function () {
+    it('Values', function() {
+      helpersh.spec.map.Values(Bluebird);
+    });
+    it('Promises', function() {
+      helpersh.spec.map.Promises(Bluebird);
+    });
+  });
+
 });
