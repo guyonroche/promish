@@ -7,6 +7,10 @@ pids
 *.pid
 *.seed
 
+# Generated files
+dist/*
+build/*
+
 # Test Output Folder
 out/*
 
