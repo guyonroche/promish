@@ -5,6 +5,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
   grunt.initConfig({
     babel: {
@@ -32,6 +33,15 @@ module.exports = function(grunt) {
         }
       }
     },
+    concat: {
+      options: {
+        banner: '/*! Promish <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+      },
+      dist: {
+        src: ['./build/lib/promish-class.js', './build/lib/promish-es2015.js'],
+        dest: 'dist/es5-promish.js',
+      }
+    },
     uglify: {
       options: {
         banner: '/*! Promish <%= grunt.template.today("dd-mm-yyyy") %> */\n'
@@ -45,4 +55,5 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build', ['babel', 'browserify', 'uglify']);
+  grunt.registerTask('es5', ['babel', 'concat']);
 };

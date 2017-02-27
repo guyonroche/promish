@@ -93,6 +93,7 @@ var helpersh = module.exports = {
     MyErrorB: MyErrorB
   },
   paushe: function(result, value, timeout) {
+    // TODO: use CPromise
     if (timeout === undefined) timeout = 1;
     return new Promish(function(resolve, reject) {
       if (result === EReshult.THROW) {
@@ -122,6 +123,7 @@ var helpersh = module.exports = {
   },
   
   defer: function(result, value, timeout) {
+    // TODO: use CPromise
     var deferred = Promish.defer();
     function handler() {
       switch(result) {

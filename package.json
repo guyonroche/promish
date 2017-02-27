@@ -47,6 +47,7 @@
     "grunt": "^1.0.1",
     "grunt-babel": "^6.0.0",
     "grunt-browserify": "^5.0.0",
+    "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^2.1.0",
     "grunt-contrib-watch": "^1.0.0",
     "jshint": "2.8.x",
@@ -56,6 +57,8 @@
   },
   "scripts": {
     "build": "./node_modules/.bin/grunt build",
+    "build-browser": "./node_modules/.bin/grunt build",
+    "build-es5": "./node_modules/.bin/grunt es5",
     "jshint": "npm run jshint-lib & npm run jshint-spec",
     "jshint-lib": "node node_modules/jshint/bin/jshint --config ./.jshintrc ./lib --verbose",
     "jshint-spec": "node node_modules/jshint/bin/jshint --config ./.jshintrc-spec ./spec --verbose",
