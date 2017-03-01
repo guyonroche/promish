@@ -1,6 +1,6 @@
 {
   "name": "promish",
-  "version": "4.2.7",
+  "version": "4.2.9",
   "description": "ES6 Promise Shim",
   "private": false,
   "license": "MIT",
@@ -32,10 +32,12 @@
     "Promisify",
     "Promisification",
     "call",
-    "apply"
+    "apply",
+    "map",
+    "reduce"
   ],
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.0.0"
   },
   "dependencies": {},
   "devDependencies": {
@@ -48,6 +50,7 @@
     "grunt-babel": "^6.0.0",
     "grunt-browserify": "^5.0.0",
     "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-uglify": "^2.1.0",
     "grunt-contrib-watch": "^1.0.0",
     "jshint": "2.8.x",

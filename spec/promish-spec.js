@@ -7,15 +7,18 @@ var shpecList = [
   'all',
   'any',
   'apply',
+  'bluebird',
   'call',
   'catch',
   'constructor',
   'defer',
   'delay',
   'finally',
+  'map',
   'method',
   'promisify-all',
   'race',
+  'reduce',
   'reject',
   'resolve',
   'some',
@@ -23,4 +26,6 @@ var shpecList = [
   'then',
 ];
 
-shpecs(Promish, 'Promish', shpecList);
+describe('Promish', function() {
+  shpecs(Promish, shpecList);
+});

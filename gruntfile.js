@@ -38,8 +38,8 @@ module.exports = function(grunt) {
         banner: '/*! Promish <%= grunt.template.today("dd-mm-yyyy") %> */\n'
       },
       dist: {
-        src: ['./build/lib/promish-class.js', './build/lib/promish-es2015.js'],
-        dest: 'dist/es5-promish.js',
+          src: ['./build/lib/promish-class.js'],
+          dest: 'dist/es5-promish.js',
       }
     },
     uglify: {
@@ -48,12 +48,12 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          './dist/promish.min.js': ['./dist/promish.js']
+          './dist/promish.min.js': ['./dist/promish.js'],
+          './dist/es5-promish.min.js': ['./dist/es5-promish.js'],
         }
       }
     }
   });
 
-  grunt.registerTask('build', ['babel', 'browserify', 'uglify']);
-  grunt.registerTask('es5', ['babel', 'concat']);
+  grunt.registerTask('build', ['babel', 'concat', 'browserify', 'uglify']);
 };
