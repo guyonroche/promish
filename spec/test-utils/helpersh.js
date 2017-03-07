@@ -2,7 +2,7 @@
 var util = require('util');
 var fs = require('fs');
 var expect = require('chai').expect
-var Promish = require('../lib/promish');
+var Promish = require('../../lib/promish');
 
 // =============================================================================
 var EReshult = {

@@ -1,7 +1,6 @@
 'use strict';
 var Q = require('q');
 
-var HrStopwatch = require('../test-utils/hr-stopwatch');
 var helpersh = require('../test-utils/helpersh');
 var Unexpected = helpersh.handlersh.unexpected;
 

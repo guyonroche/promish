@@ -3,7 +3,7 @@
 var expect = require('chai').expect;
 var helpersh = require('../helpersh');
 var Unexpected = helpersh.handlersh.unexpected;
-var Promish = require('../../lib/promish');
+var Promish = require('../../../lib/promish');
 
 module.exports = function(CPromise, options = {}) {
   options = Object.assign({}, {

@@ -70,7 +70,8 @@
     "jshint-lib": "node node_modules/jshint/bin/jshint --config ./.jshintrc ./lib --verbose",
     "jshint-spec": "node node_modules/jshint/bin/jshint --config ./.jshintrc-spec ./spec --verbose",
     "prepublish": "npm run clean-build",
-    "test": "mocha spec"
+    "test": "npm run unit-test",
+    "unit-test": "mocha spec/unit"
   },
   "main": "lib/promish.js",
   "files": [

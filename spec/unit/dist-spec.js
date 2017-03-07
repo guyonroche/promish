@@ -1,9 +1,9 @@
 'use strict';
 
 var distros = {
-  ES6PromishNode: require('../dist/promish-node'),
-  ES6PromishBundle: require('../dist/promish-bundle.min'),
-  ES6PromishBundleMin: require('../dist/promish-bundle.min'),
+  ES6PromishNode: require('../../dist/promish-node'),
+  ES6PromishBundle: require('../../dist/promish-bundle.min'),
+  ES6PromishBundleMin: require('../../dist/promish-bundle.min'),
 };
 
 var shpecs = require('../test-utils/shpecs');

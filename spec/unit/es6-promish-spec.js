@@ -1,5 +1,5 @@
 'use strict';
-var Promish = require('../lib/es6-promish');
+var Promish = require('../../lib/es6-promish');
 
 var shpecs = require('../test-utils/shpecs');
 
