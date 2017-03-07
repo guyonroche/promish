@@ -57,6 +57,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "jshint": "2.8.x",
     "mocha": "*",
+    "pinkie": "*",
     "q": "*",
     "uglifyjs": "^2.4.10"
   },
