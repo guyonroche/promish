@@ -6,11 +6,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.initConfig({
     babel: {
       options: {
-        sourceMap: true
+        sourceMap: true,
       },
       dist: {
         files: [
@@ -23,24 +24,42 @@ module.exports = function(grunt) {
       }
     },
     browserify: {
-      standalone: {
-        src: ['./build/lib/promish-es2015.js'],
-        dest: './dist/promish.js',
+      browser: {
+        src: ['./build/lib/es6-promish.js'],
+        dest: './dist/promish-bundle.js',
         options: {
           browserifyOptions: {
             standalone: 'Promish'
           }
         }
-      }
-    },
-    concat: {
-      options: {
-        banner: '/*! Promish <%= grunt.template.today("dd-mm-yyyy") %> */\n'
       },
-      dist: {
-          src: ['./build/lib/promish-class.js'],
-          dest: 'dist/es5-promish.js',
-      }
+      // node: {
+      //   src: ['./build/lib/es6-promish.js'],
+      //   dest: './dist/promish-node.js',
+      //   options: {
+      //     browserifyOptions: {
+      //       standalone: 'Promish',
+      //       builtins: false,
+      //       commondir: false,
+      //       'insert-global-vars': '__filename,__dirname',
+      //       detectGlobals: false,
+      //       'browser-field': false,
+      //     }
+      //   }
+      // },
+    },
+    // concat: {
+    //   options: {
+    //     banner: '/*! Promish <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+    //   },
+    //   dist: {
+    //     src: ['./build/lib/promish-class.js', './build/lib/es6-promish.js'],
+    //     dest: 'dist/es6-promish.js',
+    //   }
+    // },
+    copy: {
+      'promish-node': { src: './build/lib/es6-promish.js', dest: './dist/promish-node.js' },
+      'promish-class': { src: './build/lib/promish-class.js', dest: './dist/promish-class.js' },
     },
     uglify: {
       options: {
@@ -48,12 +67,11 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          './dist/promish.min.js': ['./dist/promish.js'],
-          './dist/es5-promish.min.js': ['./dist/es5-promish.js'],
+          './dist/promish-bundle.min.js': ['./dist/promish-bundle.js'],
         }
       }
     }
   });
 
-  grunt.registerTask('build', ['babel', 'concat', 'browserify', 'uglify']);
+  grunt.registerTask('build', ['babel', 'browserify', 'copy', 'uglify']);
 };

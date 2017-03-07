@@ -19,7 +19,7 @@ module.exports = function(CPromise) {
       });
     });
 
-    it('should call type-specific catch (only)', function() {
+    it('should call type-specific catch (and nothing else)', function() {
       return new Promise(function(resolve, reject) {
         helpersh.paushe(EReshult.REJECT, new Errorsh.MyError('Hello', 'World'))
           .then(Unexpected.then(resolve, reject))
@@ -32,7 +32,7 @@ module.exports = function(CPromise) {
       });
     });
 
-    it('should call correct type-specific catch (only)', function() {
+    it('should call correct type-specific catch (and nothing else)', function() {
       return new Promise(function(resolve, reject) {
         helpersh.paushe(EReshult.REJECT, new Errorsh.MyErrorB('Hello', 'World'))
           .then(Unexpected.then(resolve, reject))

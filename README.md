@@ -6,12 +6,12 @@
 P R O M
 ```
 
-The Promish module creates a wrapper around the EcmaScript 6 Promise class.
+The Promish module creates a wrapper around the EcmaScript 6 Promise class (and others).
  It adds some of the useful features found in many of the other popular promise libraries such as Q and Bluebird.
  It is designed to be interchangeable with the ES6 Promise as its interface is a superset of the Promise class.
 
-This is probably one of the smallest promise libraries - currently around 6.5kb (smaller than this README!)
- and comes with no dependencies (other than ES6 Promises).
+I have strived to keep this library as small as practicable while offering as much functionality as possible.
+  As it stands, the minified browserified bundle is less than 14k!
 
 # Installation
 
@@ -20,40 +20,71 @@ npm install promish
 # New Features!
 
 <ul>
-  <li>NPM Keywords</li>
+    <li>
+        Browserification
+        <ul>
+            <li>
+                The Promish class has been reworked to allow the base-promise class it extends to be injected
+                so that a browser friendly promise can be used for the browserify build. The implementation I
+                am using for this is <a href="https://www.npmjs.com/package/es6-promise">es6-promise</a>.
+            </li>
+            <li>
+                The standard Promish implementation (via require('promish') has not been affected and will still
+                deliver a Promish class that extends the native Promise.
+            </li>
+            <li>
+                See <a href="#browserification">Browserification</a> for details.
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#map">map</a>
+        <ul>
+            <li>map takes an array of values or promises and calls a supplied callback function on each resolved value finally resolving in an array of values</li>
+        </ul>
+    </li>
+    <li>
+        <a href="#reduce">reduce</a>
+        <ul>
+            <li>reduce takes an array of values or promises and calls a supplied callback function on each resolved value in a sequential fashion resolving to a single value</li>
+        </ul>
+    </li>
 </ul>
 
 # Contents
 
 <ul>
-  <li>
-    <a href="#interface">Interface</a>
-    <ul>
-      <li><a href="#include">Include</a></li>
-      <li><a href="#instantiation">Instantiation</a></li>
-      <li><a href="#then">Then</a></li>
-      <li><a href="#catch">Catch</a></li>
-      <li><a href="#finally">Finally</a></li>
-      <li>
-        <a href="#promisification">Promishification</a>
+    <li>
+        <a href="#interface">Interface</a>
         <ul>
-          <li><a href="#apply">Apply</a></li>
-          <li><a href="#call">Call</a></li>
-          <li><a href="#post">Post</a></li>
-          <li><a href="#invoke">Invoke</a></li>
-          <li><a href="#promisify">Promisify</a></li>
-          <li><a href="#promisify-all">Promisify All</a></li>
-          <li><a href="#method">Method</a></li>
+            <li><a href="#include">Include</a></li>
+            <li><a href="#instantiation">Instantiation</a></li>
+            <li><a href="#then">Then</a></li>
+            <li><a href="#catch">Catch</a></li>
+            <li><a href="#finally">Finally</a></li>
+            <li>
+                <a href="#promisification">Promishification</a>
+                <ul>
+                    <li><a href="#apply">Apply</a></li>
+                    <li><a href="#call">Call</a></li>
+                    <li><a href="#post">Post</a></li>
+                    <li><a href="#invoke">Invoke</a></li>
+                    <li><a href="#promisify">Promisify</a></li>
+                    <li><a href="#promisify-all">Promisify All</a></li>
+                    <li><a href="#method">Method</a></li>
+                </ul>
+            </li>
+            <li><a href="#race">Race</a></li>
+            <li><a href="some">Some</a></li>
+            <li><a href="#any">Any</a></li>
+            <li><a href="#spread">Spread</a></li>
+            <li><a href="#map">Map</a></li>
+            <li><a href="#reduce">Reduce</a></li>
         </ul>
-      </li>
-      <li><a href="#race">Race</a></li>
-      <li><a href="some">Some</a></li>
-      <li><a href="#any">Any</a></li>
-      <li><a href="#spread">Spread</a></li>
-    </ul>
-  </li>
-  <li><a href="#known-issues">Known Issues</a></li>
-  <li><a href="#release-history">Release History</a></li>
+    </li>
+    <li><a href="#browserification">Browserification</a></li>
+    <li><a href="#known-issues">Known Issues</a></li>
+    <li><a href="#release-history">Release History</a></li>
 </ul>
 
 # Interface
@@ -421,6 +452,8 @@ Promish.all([getPromish1(), getPromish2(), getPromish3()])
 ```
 
 Spread will also convert an array of promises into their resolved values
+
+```javascript
 new Promish(function(resolve) {
     resolve([getPromish1(), getPromish2(), getPromish3()])
   })
@@ -429,6 +462,73 @@ new Promish(function(resolve) {
     // b === value from getPromish2
     // c === value from getPromish3
   });
+```
+
+## Map
+
+Process an array of values or promises using supplied callback and resolving with an array of processed values.
+
+```javascript
+function processMapValues(value) {
+    return value * 2;
+}
+// static version
+Promish.map([getValue(), getPromise()], processMapValues)
+    .spread(function(a,b) {
+        // a and b are resolved values
+    });
+    
+// inline version
+Promish.resolve([getValue(), getPromise()])
+    .map(processMapValues)
+    .spread(function(a,b) {
+        // a and b are resolved values
+    });
+```
+
+## Reduce
+
+Process an array of values or promises using supplied callback and resolving with a single accumulated values.
+The callback is called with arguments of accumulator and resolved value and returns a value or promise which will be resolved to become the next accuumulator value.
+For further reading on reduce, please consult documentation for Array reduce();
+
+```javascript
+function processReduceValues(total, value) {
+    return total + value;
+}
+
+// static version
+Promish.reduce([getValue(), getPromise()], processReduceValues, 0)
+    .then(function(total) {
+        //  total will be the sum of all resolved values
+    });
+    
+// inline version
+Promish.resolve([getValue(), getPromise()])
+    .reduce(processReduceValues)
+    .then(function(total) {
+        //  total will be the sum of all resolved values
+    });
+    
+```
+
+# Browserification
+
+Promish is now also built for browserification both as a standalone bundle and as a module suitable for inclusion into your own browserify build.
+
+## dist/promish-bundle
+
+A browserified bundle is included as dist/promish-bundle.js (or dist/promish-bundle.min.js).
+  The bundle uses (and includes) the es6-promise module in order to produce a browser friendly bundle.
+
+## dist/promish-node
+
+For node projects that still require older versions of JavaScript (or for including in a different browser bundle),
+  a node friendly module has also been included. To use, add the following code:
+
+```javascript
+var Promish = require('promish/dist/promish-node');
+```
 
 # Known Issues
 
@@ -450,3 +550,4 @@ new Promish(function(resolve) {
 | 4.2.3   | <ul><li>Added implict Promish.all to spread</li></ul> |
 | 4.2.4   | <ul><li>finally() must not swallow rejection.</li></ul> |
 | 4.2.5   | <ul><li>jshint!</li></ul> |
+| 4.2.8   | <ul><li>NPM Keywords</li></ul> |

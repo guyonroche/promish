@@ -24,8 +24,8 @@ var shpecList = [
   'then',
 ];
 
-// TODO: promisify,  promisifyAll
-
+// the purpose of this file is to test that all the above named shpecs are correct wrt Q
+// I.e we're not testing Q here!
 describe('Q', function() {
   var options = {
     spreadResolveValues: false,
