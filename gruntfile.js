@@ -7,6 +7,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jasmine');
 
   grunt.initConfig({
     babel: {
@@ -24,7 +25,7 @@ module.exports = function(grunt) {
       }
     },
     browserify: {
-      browser: {
+      dist: {
         src: ['./build/lib/es6-promish.js'],
         dest: './dist/promish-bundle.js',
         options: {
@@ -32,6 +33,10 @@ module.exports = function(grunt) {
             standalone: 'Promish'
           }
         }
+      },
+      spec: {
+        src: ['./build/spec/browser/promish-spec.js'],
+        dest: './build/web/promish-spec.js'
       },
       // node: {
       //   src: ['./build/lib/es6-promish.js'],
@@ -68,6 +73,15 @@ module.exports = function(grunt) {
       dist: {
         files: {
           './dist/promish-bundle.min.js': ['./dist/promish-bundle.js'],
+        }
+      }
+    },
+
+    jasmine: {
+      dev: {
+        src: ['./dist/promish-bundle.js'],
+        options: {
+          specs: './build/web/promish-spec.js'
         }
       }
     }

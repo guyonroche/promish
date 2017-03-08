@@ -1,33 +1,47 @@
 'use strict';
+require("babel-polyfill");
+
 var Promish = require('../../lib/promish');
 
-var shpecList = {
-  'all': require('../test-utils/shpecs/all'),
-  'any': require('../test-utils/shpecs/any'),
-  'apply': require('../test-utils/shpecs/apply'),
-  'bluebird': require('../test-utils/shpecs/bluebird'),
-  'call': require('../test-utils/shpecs/call'),
-  'catch': require('../test-utils/shpecs/catch'),
-  'constructor': require('../test-utils/shpecs/constructor'),
-  'defer': require('../test-utils/shpecs/defer'),
-  'delay': require('../test-utils/shpecs/delay'),
-  'finally': require('../test-utils/shpecs/finally'),
-  'map': require('../test-utils/shpecs/map'),
-  'method': require('../test-utils/shpecs/method'),
-  'promisify-all': require('../test-utils/shpecs/promisify'),
-  'race': require('../test-utils/shpecs/race'),
-  'reduce': require('../test-utils/shpecs/reduce'),
-  'reject': require('../test-utils/shpecs/reject'),
-  'resolve': require('../test-utils/shpecs/resolve'),
-  'some': require('../test-utils/shpecs/some'),
-  'spread': require('../test-utils/shpecs/spread'),
-  'then': require('../test-utils/shpecs/then'),
-};
+function unexpected(done) {
+  return function() {
+    expect(true).toEqual(false);
+    done();
+  }
+}
 
 describe('Promish', function() {
-  Object.keys(shpecList).forEach(key => {
-    describe(key, () => {
-      shpecList[key](Promish);
-    });
+  it('should resolve with value', function (done) {
+    new Promish(function (resolve) { resolve(7); })
+      .catch(unexpected(done))
+      .then(function (value) {
+        expect(value).toEqual(7);
+        done();
+      })
+      .catch(unexpected(done));
   });
+
+  it('should map values', function(done) {
+    Promish.resolve([1,2,3])
+      .map(function(a) { return a * 2; })
+      .spread(function(a,b,c) {
+        expect(a).toEqual(2);
+        expect(b).toEqual(4);
+        expect(c).toEqual(6);
+        done();
+      })
+      .catch(unexpected(done));
+  });
+  it('should map promises', function(done) {
+    Promish.resolve([Promish.resolve(1),Promish.resolve(2),Promish.resolve(3)])
+      .map(function(a) { return a * 2; })
+      .spread(function(a,b,c) {
+        expect(a).toEqual(2);
+        expect(b).toEqual(4);
+        expect(c).toEqual(6);
+        done();
+      })
+      .catch(unexpected(done));
+  });
+
 });

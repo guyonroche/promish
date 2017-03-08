@@ -530,6 +530,15 @@ For node projects that still require older versions of JavaScript (or for includ
 var Promish = require('promish/dist/promish-node');
 ```
 
+Note that promish-node makes use of ES6 features like Array.from that are not covered by the babel transpile.
+  If you need to use promish in a completely ES2015 environment you will need to include some kind of compatable polyfill:
+
+```javascript
+// polyfill ES6 features
+require('babel-polyfill');
+```
+
+
 # Known Issues
 
 <ul>
