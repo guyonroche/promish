@@ -1,6 +1,6 @@
 {
   "name": "promish",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "ES6 Promise Shim",
   "private": false,
   "license": "MIT",
