@@ -65,6 +65,7 @@ module.exports = function(grunt) {
     copy: {
       'promish-node': { src: './build/lib/es6-promish.js', dest: './dist/promish-node.js' },
       'promish-class': { src: './build/lib/promish-class.js', dest: './dist/promish-class.js' },
+      'promish': { src: './build/lib/promish.js', dest: './dist/promish.js' },
     },
     uglify: {
       options: {
