@@ -74,7 +74,7 @@
     "test": "npm run unit-test && npm run browser-test",
     "unit-test": "mocha spec/unit",
     "browser-test": "./node_modules/.bin/grunt jasmine",
-    "preversion": "npm run clea-build && npm run test",
+    "preversion": "npm run clean-build && npm run test",
     "postversion": "git push --no-verify && git push --tags --no-verify"
   },
   "main": "lib/promish.js",
