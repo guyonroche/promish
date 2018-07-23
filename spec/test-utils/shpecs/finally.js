@@ -8,7 +8,7 @@ module.exports = function(CPromise) {
 
   describe('finally', function () {
     it(`Isn't already in Promise`, function() {
-      expect(Promise.finally).not.to.be.defined;
+      expect(Promise.finally).to.be.undefined;
     });
 
     describe('incoming resolve', function() {
@@ -17,7 +17,7 @@ module.exports = function(CPromise) {
           helpersh.paushe(EReshult.RESOLVE, 5)
             .catch(Unexpected.catch(resolve, reject))
             .finally(function(value) {
-              expect(value).not.to.be.defined;
+              expect(value).to.be.undefined;
               resolve();
             });
         });
@@ -52,7 +52,7 @@ module.exports = function(CPromise) {
         return new Promise(function(resolve) {
           helpersh.paushe(EReshult.REJECT, 5)
             .finally(function(value) {
-              expect(value).not.to.be.defined;
+              expect(value).to.be.undefined;
               resolve();
             })
             .catch(() => {});

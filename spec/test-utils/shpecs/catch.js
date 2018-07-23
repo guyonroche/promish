@@ -25,7 +25,7 @@ module.exports = function(CPromise) {
           .then(Unexpected.then(resolve, reject))
           .catch(Errorsh.MyError, function(error) {
             expect(error).to.be.an.instanceof(Errorsh.MyError);
-            expect(error.data).to.be.defined;
+            expect(error.data).not.to.be.undefined;
             resolve();
           })
           .catch(Unexpected.catch(resolve, reject));
@@ -39,7 +39,7 @@ module.exports = function(CPromise) {
           .catch(Errorsh.MyErrorA, Unexpected.catch(resolve, reject, 'Did not expect to catch MyErrorB in MyErrorA handler'))
           .catch(Errorsh.MyErrorB, function(error) {
             expect(error).to.be.an.instanceof(Errorsh.MyErrorB);
-            expect(error.data).to.be.defined;
+            expect(error.data).not.to.be.undefined;
             resolve();
           })
           .catch(Unexpected.catch(resolve, reject, 'Did not expect to catch error which should have been handled earlier'));
